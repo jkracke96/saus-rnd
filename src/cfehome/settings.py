@@ -25,7 +25,7 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = str(os.environ.get('DJANGO_DEBUG')).lower() == 'true'
 DEBUG = config('DJANGO_DEBUG', cast=bool)
-print("DJANGO_DEBUG", DEBUG, type(DEBUG))
+#print("DJANGO_DEBUG", DEBUG, type(DEBUG))
 
 ALLOWED_HOSTS = [
     '.railway.app'
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # my apps
+    'commando',
     'visits'
 ]
 
@@ -140,6 +141,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_BASE_DIR = BASE_DIR / 'staticfiles'
+STATICFILES_BASE_DIR.mkdir(exist_ok=True, parents=True)
 STATICFILES_VENDOR_DIR = STATICFILES_BASE_DIR / 'vendors'
 
 # source for manage.py collectstatic
