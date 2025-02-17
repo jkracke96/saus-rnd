@@ -7,6 +7,8 @@ from visits.models import PageVisits
 this_dir = pathlib.Path(__file__).resolve().parent  # get cfehome dir
 
 def home_view(request, *args, **kwargs):
+    if request.user.is_authenticated:
+        print(request.user.is_authenticated, request.user.first_name)
     return about_view(request, *args, **kwargs)
 
 def about_view(request, *args, **kwargs):
