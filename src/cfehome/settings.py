@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
     "widget_tweaks",
 ]
 
@@ -154,7 +155,12 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 ALLAUTH_UI_THEME = "light"
-SOCIALACCOUNT_PROVIDERS = {}
+SOCIALACCOUNT_PROVIDERS = {
+    "github": {
+        # in github app settings, allow ro access to email addresses under Account permissions 
+        "VERIFIED_EMAIL": True,
+    }
+}
 
 
 # Internationalization

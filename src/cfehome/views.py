@@ -1,8 +1,13 @@
 import pathlib
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+from django.conf import settings
 
 from visits.models import PageVisits
+
+LOGIN_URL = settings.LOGIN_URL
 
 this_dir = pathlib.Path(__file__).resolve().parent  # get cfehome dir
 
@@ -37,3 +42,11 @@ def home_old_page_view(request, *args, **kwargs):
     html_file_path = this_dir / "home.html"
     html_ = html_file_path.read_text()
     return HttpResponse(html_)
+
+@login_required(login_url=LOGIN_URL)
+def user_only_view(request, *args, **kwargs):
+    return render(request, "protected/user-only.html", {})
+
+@staff_member_required(login_url=LOGIN_URL)
+def staff_only_view(request, *args, **kwargs):
+    return render(request, "protected/user-only.html", {})
