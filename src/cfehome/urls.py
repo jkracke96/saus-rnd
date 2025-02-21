@@ -32,4 +32,5 @@ urlpatterns = [
     path("protected/staff-only/", staff_only_view),
     path('profiles/', include('profiles.urls')),
     path('pricing/', subscriptions_views.subscription_price_view, name="pricing"),
+    path('pricing/<str:interval>/', subscriptions_views.subscription_price_view, name="pricing_interval"),
 ]
