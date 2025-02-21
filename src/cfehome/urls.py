@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from .views import home_view, about_view, user_only_view, staff_only_view
 from auth import views as auth_views
+from subscriptions import views as subscriptions_views
 
 urlpatterns = [
     path("", home_view, name="home"),   # root page
@@ -25,9 +26,10 @@ urlpatterns = [
     path("hello-world/", home_view),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-    path('login/', auth_views.login_view),
-    path('register/', auth_views.register_view),
+    # path('login/', auth_views.login_view),
+    # path('register/', auth_views.register_view),
     path("protected/user-only/", user_only_view),
     path("protected/staff-only/", staff_only_view),
     path('profiles/', include('profiles.urls')),
+    path('pricing/', subscriptions_views.subscription_price_view, name="pricing"),
 ]
