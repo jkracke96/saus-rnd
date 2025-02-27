@@ -1,5 +1,6 @@
 import stripe
 from decouple import config
+from . import date_utils
 
 DJANGO_DEBUG = config('DJANGO_DEBUG', cast=bool, default=False)
 STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY', default="", cast=str)
@@ -70,3 +71,49 @@ def start_checkout_session(customer_id, success_url="", cancel_url="", price_str
     if raw:
         return response
     return response.url
+
+
+def get_checkout_session(stripe_id, raw=True):
+    response = stripe.checkout.Session.retrieve(stripe_id)
+    if raw:
+        return response
+    return response.url
+
+
+def get_subscription(stripe_id, raw=True):
+    response = stripe.Subscription.retrieve(stripe_id)
+    if raw:
+        return response
+    return response.url
+
+
+def cancel_subscription(stripe_id, reason="", feedback="other", raw=True):
+    response = stripe.Subscription.cancel(
+        stripe_id,
+        cancellation_details={
+            "comment": reason,
+            "feedback": feedback
+        }
+    )
+    if raw:
+        return response
+    return response.url
+
+
+def get_checkout_customer_plan(session_id, raw=True):
+    checkout_response = get_checkout_session(session_id, raw=True)
+    customer_id = checkout_response.customer
+    sub_stripe_id = checkout_response.subscription
+    sub_response = get_subscription(sub_stripe_id, raw=True)
+    sub_plan = sub_response.plan
+    sub_plan_stripe_price_id = sub_plan.id
+    current_period_start = date_utils.timestamp_as_datetime(sub_response.current_period_start)
+    current_period_end = date_utils.timestamp_as_datetime(sub_response.current_period_end)
+    data = {
+        "customer_id": customer_id,
+        "plan_id": sub_plan_stripe_price_id,
+        "sub_stripe_id": sub_stripe_id,
+        "current_period_start": current_period_start,
+        "current_period_end": current_period_end,
+    }
+    return data
