@@ -11,7 +11,7 @@ from subscriptions import utils as subs_utils
 def user_subscription_view(request):
     user_sub_obj, created = UserSubscription.objects.get_or_create(user=request.user)
     if request.method == "POST":
-        finished = subs_utils.refresh_active_users_subscriptions([request.user.id])
+        finished = subs_utils.refresh_active_users_subscriptions([request.user.id], active_only=False)
         if finished:
             messages.success(request, "Your subscription details have been refreshed.")
         else:
