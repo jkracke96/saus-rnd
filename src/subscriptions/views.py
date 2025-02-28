@@ -28,6 +28,7 @@ def user_subscription_cancel_view(request):
             sub_data = helpers.billing.cancel_subscription(
                 user_sub_obj.stripe_id,
                 reason="User wanted to end",
+                cancel_at_period_end=True,
                 feedback="other",
                 raw=False
             )
