@@ -28,6 +28,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('accounts/billing/', subscriptions_views.user_subscription_view, name="user_subscription"),
+    path('accounts/billing/cancel/', subscriptions_views.user_subscription_cancel_view, name="user_subscription_cancel"),
     # path('login/', auth_views.login_view),
     # path('register/', auth_views.register_view),
     path("protected/user-only/", user_only_view),
