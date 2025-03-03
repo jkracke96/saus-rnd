@@ -10,7 +10,7 @@ jobs:
     test:
         runs-on: ubuntu-latest
         env:
-          # DJANGO_SECRET_KEY: not good
+          DATABASE_URL: ${{ secrets.NEON_DATABASE_URL }}
           DJANGO_DEBUG: 0
         steps:
           - name: Checkout Code
@@ -23,6 +23,9 @@ jobs:
             run: |
               MY_KEY=$(openssl rand -base64 32)
               echo "DJANGO_SECRET_KEY=$MY_KEY" >> $GITHUB_ENV
+          - name: show DATABASE_URL
+            run: |
+              echo $DATABASE_URL
           - name: Install Requirements
             #working-directory: ./src
             run: |
