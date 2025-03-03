@@ -36,10 +36,10 @@ jobs:
               neonctl branches delete "${{ env.NEON_GITHUB_BRANCH }}" --project-id "${{ env.NEON_PROJECT_ID }}"
           - name: Create new Neon branch
             run: |
-              neonctl connection-string --branch "${{ env.NEON_GITHUB_BRANCH }}" --parent "${{ env.NEON_PROD_BRANCH }}" --project-id "${{ env.NEON_PROJECT_ID }}"
+              neonctl branches create --name "${{ env.NEON_GITHUB_BRANCH }}" --parent "${{ env.NEON_PROD_BRANCH }}" --project-id "${{ env.NEON_PROJECT_ID }}"
           - name: Database url for new Neon branch
             run: |
-              MY_NEON_CONN_STRING=$(neonctl branches create --name "${{ env.NEON_GITHUB_BRANCH }}" --project-id "${{ env.NEON_PROJECT_ID }}")
+              MY_NEON_CONN_STRING=$(neonctl connection-string --branch "${{ env.NEON_GITHUB_BRANCH }}" --project-id "${{ env.NEON_PROJECT_ID }}")
               echo "DATABASE_URL=$MY_NEON_CONN_STRING" >> $GITHUB_ENV
           - name: Generate Dajngo Secret
             run: |
