@@ -10,7 +10,11 @@ jobs:
     test:
         runs-on: ubuntu-latest
         env:
-          DATABASE_URL: ${{ secrets.NEON_DATABASE_URL }}
+          #DATABASE_URL: ${{ secrets.NEON_DATABASE_URL }}
+          NEON_API_KEY: ${{ secrets.NEON_API_KEY }}
+          NEON_GITHUB_BRANCH: "gh-delete"
+          NEON_PROD_BRANCH: "main"
+          NEON_PROJECT_ID: ${{ secrets.NEON_PROJECT_ID }}
           DJANGO_DEBUG: 0
         steps:
           - name: Checkout Code
@@ -19,13 +23,28 @@ jobs:
             uses: actions/setup-python@v5
             with:
               python-version: '3.12'
+          - name: Setup Node
+            uses: actions/setup-node@v4
+            with:
+              node-version: "20.11"
+          - name: Install Neon CLI
+            run: |
+              npm install -g neonctl
+          - name: Delete previous Neon branch
+            continue-on-error: true
+            run: |
+              neonctl branches delete "${{ env.NEON_GITHUB_BRANCH }}" --project-id "${{ env.NEON_PROJECT_ID }}"
+          - name: Create new Neon branch
+            run: |
+              neonctl connection-string --branch "${{ env.NEON_GITHUB_BRANCH }}" --parent "${{ env.NEON_PROD_BRANCH }}" --project-id "${{ env.NEON_PROJECT_ID }}"
+          - name: Database url for new Neon branch
+            run: |
+              MY_NEON_CONN_STRING=$(neonctl branches create --name "${{ env.NEON_GITHUB_BRANCH }}" --project-id "${{ env.NEON_PROJECT_ID }}")
+              echo "DATABASE_URL=$MY_NEON_CONN_STRING" >> $GITHUB_ENV
           - name: Generate Dajngo Secret
             run: |
               MY_KEY=$(openssl rand -base64 32)
               echo "DJANGO_SECRET_KEY=$MY_KEY" >> $GITHUB_ENV
-          - name: show DATABASE_URL
-            run: |
-              echo $DATABASE_URL
           - name: Install Requirements
             #working-directory: ./src
             run: |
