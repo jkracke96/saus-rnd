@@ -40,8 +40,12 @@ BASE_URL = config('BASE_URL', default=None)
 
 ALLOWED_HOSTS = [
     '.railway.app',
-    'saus-rnd-production-5ac2.up.railway.app'
+    'saus-rnd-production-5ac2.up.railway.app',
+    'https://saus-rnd-production-5ac2.up.railway.app'
 ]
+
+CSRF_TRUSTED_ORIGINS = ['https://saus-rnd-production-5ac2.up.railway.app']
+
 if DEBUG:
     ALLOWED_HOSTS += [
         '127.0.0.1',
