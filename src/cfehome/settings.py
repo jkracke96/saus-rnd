@@ -39,7 +39,8 @@ DEBUG = config('DJANGO_DEBUG', cast=bool)
 BASE_URL = config('BASE_URL', default=None)
 
 ALLOWED_HOSTS = [
-    '.railway.app'
+    '.railway.app',
+    'saus-rnd-production-5ac2.up.railway.app'
 ]
 if DEBUG:
     ALLOWED_HOSTS += [

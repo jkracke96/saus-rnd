@@ -24,7 +24,7 @@ from landing import views as landing_views
 
 
 urlpatterns = [
-    path("", landing_views.landing_page_view, name="home"),   # root page
+    path("", landing_views.landing_dashboard_page_view, name="home"),   # root page
     path("about/", about_view),
     path("hello-world/", home_view),
     path('admin/', admin.site.urls),
