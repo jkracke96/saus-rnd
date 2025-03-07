@@ -1,8 +1,11 @@
-name: 3 - Test Django env vars
+name: 4 - Django Sync Users Subs
 
 on:
     workflow_dispatch:
     schedule:
+      - cron: '0 1,12 * * *'
+      - cron: '0 4 1 * *'
+
 
 
 jobs:
@@ -11,7 +14,6 @@ jobs:
         env:
           #DATABASE_URL: ${{ secrets.NEON_DATABASE_URL }}
           NEON_API_KEY: ${{ secrets.NEON_API_KEY }}
-          NEON_GITHUB_BRANCH: "gh-delete"
           NEON_PROD_BRANCH: "main"
           NEON_PROJECT_ID: ${{ secrets.NEON_PROJECT_ID }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
@@ -30,16 +32,9 @@ jobs:
           - name: Install Neon CLI
             run: |
               npm install -g neonctl
-          - name: Delete previous Neon branch
-            continue-on-error: true
-            run: |
-              neonctl branches delete "${{ env.NEON_GITHUB_BRANCH }}" --project-id "${{ env.NEON_PROJECT_ID }}"
-          - name: Create new Neon branch
-            run: |
-              neonctl branches create --name "${{ env.NEON_GITHUB_BRANCH }}" --parent "${{ env.NEON_PROD_BRANCH }}" --project-id "${{ env.NEON_PROJECT_ID }}"
           - name: Database url for new Neon branch
             run: |
-              MY_NEON_CONN_STRING=$(neonctl connection-string --branch "${{ env.NEON_GITHUB_BRANCH }}" --project-id "${{ env.NEON_PROJECT_ID }}")
+              MY_NEON_CONN_STRING=$(neonctl connection-string --branch "${{ env.NEON_PROD_BRANCH }}" --project-id "${{ env.NEON_PROJECT_ID }}")
               echo "DATABASE_URL=$MY_NEON_CONN_STRING" >> $GITHUB_ENV
           - name: Generate Dajngo Secret
             run: |
@@ -50,19 +45,14 @@ jobs:
             run: |
               python -m pip install pip --upgrade
               python -m pip install -r requirements.txt
-          - name: Django Tests
+          - name: Django Users Sync Stripe Subscriptions
             working-directory: ./src
-            env:
-              DJANGO_SECRET_KEY: not good
-              DJANGO_DEBUG: 0
+            if: github.event.schedule != '0 4 1 * *'
             run: |
-              python manage.py test
-          - name: Clean-Up step
-            continue-on-error: true
+              python manage.py sync_user_subs --day-start 0 --day-end 1
+          - name: Django Users Clear Dankling Stripe Subscriptions
+            working-directory: ./src
+            if: github.event.schedule == '0 4 1 * *'
             run: |
-              neonctl branches delete "${{ env.NEON_GITHUB_BRANCH }}" --project-id "${{ env.NEON_PROJECT_ID }}"
-            
+              python manage.py sync_user_subs --clear-dangling
           
-
-
-

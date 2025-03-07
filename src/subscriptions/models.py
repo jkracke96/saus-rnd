@@ -160,12 +160,15 @@ class SubscriptionStatus(models.TextChoices):
 
 
 class UserSubsctiptionQuerySet(models.QuerySet):
-    def by_range(self, day_start=7, day_end=120):
+    def by_range(self, day_start=7, day_end=120, verbose=True):
         now = timezone.now()
         days_start_from_now = now + datetime.timedelta(days=day_start)
         days_end_from_now = now + datetime.timedelta(days=day_end)
         range_start = days_start_from_now.replace(hour=0, minute=0, second=0, microsecond=0)
         range_end = days_end_from_now.replace(hour=23, minute=59, second=59, microsecond=999999)
+        if verbose:
+            print(f"Range start: {range_start}")
+            print(f"Range end: {range_end}")
         return self.filter(
             current_period_end__gte=range_start,
             current_period_end__lte=range_end
