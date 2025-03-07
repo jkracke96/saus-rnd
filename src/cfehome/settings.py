@@ -48,6 +48,12 @@ CSRF_TRUSTED_ORIGINS = ['https://saus-rnd-production-5ac2.up.railway.app']
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+CORS_ALLOW_ALL_ORIGINS = False  # Keep this False for security
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Allow requests from your frontend
+]
+CORS_ALLOW_CREDENTIALS = True  # Allow credentials like cookies or headers
+
 if DEBUG:
     ALLOWED_HOSTS += [
         '127.0.0.1',
@@ -78,12 +84,14 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
     "widget_tweaks",
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware", # Add this line
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

@@ -21,17 +21,18 @@ from auth import views as auth_views
 from subscriptions import views as subscriptions_views
 from checkouts import views as checkouts_views
 from landing import views as landing_views
+from dashboard import views as dashboard_views
 
 
 urlpatterns = [
-    path("", landing_views.landing_dashboard_page_view, name="home"),   # root page
+    path("", landing_views.landing_dashboard_page_view, name="home"),
+    path("redirect-to-voice-assistant", dashboard_views.redirect_to_voice_assistant_view, name="redirect_to_voice_assistant"),   # root page
     path("about/", about_view),
     path("hello-world/", home_view),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('accounts/billing/', subscriptions_views.user_subscription_view, name="user_subscription"),
     path('accounts/billing/cancel/', subscriptions_views.user_subscription_cancel_view, name="user_subscription_cancel"),
-    # path('login/', auth_views.login_view),
     # path('register/', auth_views.register_view),
     path("protected/user-only/", user_only_view),
     path("protected/staff-only/", staff_only_view),
@@ -53,4 +54,6 @@ urlpatterns = [
         checkouts_views.checkout_finalize_view,
         name="stripe-checkout-end"
     ),
+    # API
+    path('api/user/is_authenticated/<str:token>/', auth_views.api_user_is_authenticated),
 ]

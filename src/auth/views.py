@@ -1,7 +1,14 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 
 from django.contrib.auth import get_user_model
+from django.contrib import messages
+
+from django.core.signing import TimestampSigner, SignatureExpired
+from django.conf import settings
+from django.http import HttpResponseRedirect
+
 
 User = get_user_model()
 
@@ -30,3 +37,19 @@ def register_view(request, *args, **kwargs):
         except:
             print("Error")
     return render(request, "auth/register.html", {})
+
+
+def api_user_is_authenticated(request, token=None, *args, **kwargs):
+    print("TOKEN:", token)
+    signer = TimestampSigner(settings.SECRET_KEY)
+    try:
+        status = signer.unsign(token, max_age=240)
+        data = {
+            "authenticated": True
+        }
+    except:
+        messages.success(request, "You're not on a valid session. Make sure you're logged in and try again.")
+        data = {
+            "authenticated": False
+        }
+    return JsonResponse(data)
