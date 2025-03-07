@@ -46,6 +46,8 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = ['https://saus-rnd-production-5ac2.up.railway.app']
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 if DEBUG:
     ALLOWED_HOSTS += [
         '127.0.0.1',
