@@ -17,7 +17,7 @@ jobs:
           NEON_PROD_BRANCH: "main"
           NEON_PROJECT_ID: ${{ secrets.NEON_PROJECT_ID }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-          DJANGO_DEBUG: 0
+          DJANGO_DEBUG: ${{ secrets.DJANGO_DEBUG }}
         steps:
           - name: Checkout Code
             uses: actions/checkout@v4
