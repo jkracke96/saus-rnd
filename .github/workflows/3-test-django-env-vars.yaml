@@ -16,7 +16,7 @@ jobs:
           NEON_GITHUB_BRANCH: "gh-delete"
           NEON_PROD_BRANCH: "main"
           NEON_PROJECT_ID: ${{ secrets.NEON_PROJECT_ID }}
-          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          #STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
           DJANGO_DEBUG: 0
         steps:
           - name: Checkout Code
