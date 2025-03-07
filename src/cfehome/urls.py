@@ -20,9 +20,11 @@ from .views import home_view, about_view, user_only_view, staff_only_view
 from auth import views as auth_views
 from subscriptions import views as subscriptions_views
 from checkouts import views as checkouts_views
+from landing import views as landing_views
+
 
 urlpatterns = [
-    path("", home_view, name="home"),   # root page
+    path("", landing_views.landing_page_view, name="home"),   # root page
     path("about/", about_view),
     path("hello-world/", home_view),
     path('admin/', admin.site.urls),
