@@ -38,6 +38,7 @@ MANAGERS = ADMINS
 DEBUG = config('DJANGO_DEBUG', cast=bool)
 BASE_URL = config('BASE_URL', default=None)
 if not BASE_URL:
+    print(config('RAILWAY_PUBLIC_DOMAIN', default=None))
     BASE_URL = 'https://' + config('RAILWAY_PUBLIC_DOMAIN', default=None)
 
 ALLOWED_HOSTS = [
