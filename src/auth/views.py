@@ -48,7 +48,7 @@ def api_user_is_authenticated(request, token=None, *args, **kwargs):
             "authenticated": True
         }
     except:
-        messages.success(request, "You're not on a valid session. Make sure you're logged in and try again.")
+        print("Auth failed")
         data = {
             "authenticated": False
         }

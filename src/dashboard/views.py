@@ -6,6 +6,8 @@ from django.http import HttpResponseRedirect
 
 import time
 
+VOICE_AGENT_URL = settings.VOICE_AGENT_URL
+
 @login_required
 def dashboard_view(request):
     return render(request, 'dashboard/main.html', {})
@@ -21,4 +23,4 @@ def redirect_to_voice_assistant_view(request):
         print(status)
     except SignatureExpired: 
         print("NO ACCESS")
-    return HttpResponseRedirect(f"http://localhost:3000/?participantName={username}&token={token}")
+    return HttpResponseRedirect(f"{VOICE_AGENT_URL}?participantName={username}&token={token}")

@@ -37,6 +37,7 @@ MANAGERS = ADMINS
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DJANGO_DEBUG', cast=bool)
 BASE_URL = config('BASE_URL', default=None)
+VOICE_AGENT_URL = config('VOICE_AGENT_URL', default="http://localhost:3000/")
 
 ALLOWED_HOSTS = [
     '.railway.app',
@@ -44,13 +45,17 @@ ALLOWED_HOSTS = [
     'https://saus-rnd-production-5ac2.up.railway.app'
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://saus-rnd-production-5ac2.up.railway.app']
+CSRF_TRUSTED_ORIGINS = [
+    'https://saus-rnd-production-5ac2.up.railway.app',
+    'https://agreeable-wave-0f1fe0803.6.azurestaticapps.net'
+    ]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 CORS_ALLOW_ALL_ORIGINS = False  # Keep this False for security
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Allow requests from your frontend
+    "https://agreeable-wave-0f1fe0803.6.azurestaticapps.net"
 ]
 CORS_ALLOW_CREDENTIALS = True  # Allow credentials like cookies or headers
 
