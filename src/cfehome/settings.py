@@ -42,12 +42,14 @@ VOICE_AGENT_URL = config('VOICE_AGENT_URL', default="http://localhost:3000")
 ALLOWED_HOSTS = [
     '.railway.app',
     'saus-rnd-production-5ac2.up.railway.app',
-    'https://saus-rnd-production-5ac2.up.railway.app'
+    'https://saus-rnd-production-5ac2.up.railway.app',
+    'www.jobwolf.io'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://saus-rnd-production-5ac2.up.railway.app',
     'https://agreeable-wave-0f1fe0803.6.azurestaticapps.net',
+    'https://www.jobwolf.io',
     VOICE_AGENT_URL
     ]
 
