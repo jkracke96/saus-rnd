@@ -55,7 +55,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 CORS_ALLOW_ALL_ORIGINS = False  # Keep this False for security
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Allow requests from your frontend
+    # Allow requests from your frontend
     "https://agreeable-wave-0f1fe0803.6.azurestaticapps.net",
     VOICE_AGENT_URL
 ]
