@@ -47,7 +47,8 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = [
     'https://saus-rnd-production-5ac2.up.railway.app',
-    'https://agreeable-wave-0f1fe0803.6.azurestaticapps.net'
+    'https://agreeable-wave-0f1fe0803.6.azurestaticapps.net',
+    VOICE_AGENT_URL
     ]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -55,7 +56,8 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CORS_ALLOW_ALL_ORIGINS = False  # Keep this False for security
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Allow requests from your frontend
-    "https://agreeable-wave-0f1fe0803.6.azurestaticapps.net"
+    "https://agreeable-wave-0f1fe0803.6.azurestaticapps.net",
+    VOICE_AGENT_URL
 ]
 CORS_ALLOW_CREDENTIALS = True  # Allow credentials like cookies or headers
 
