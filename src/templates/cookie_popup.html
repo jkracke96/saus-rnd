@@ -1,0 +1,166 @@
+<!-- Cookie Banner Code -->
+{% if not request.COOKIES.cookie_consent %}
+<!-- Cookie Banner -->
+<div id="cookie-banner" class="cookie-banner">
+<div class="cookie-content">
+    <p>We use cookies to optimize our website and our service. Some cookies are necessary, others help us improve your experience. Choose your preference or accept all.</p>
+    <div class="cookie-actions">
+    <button id="accept-all" class="cookie-btn">Accept All</button>
+    <button id="reject-all" class="cookie-btn secondary">Reject Non-Essential</button>
+    <button id="customize" class="cookie-btn tertiary">Customize</button>
+    </div>
+</div>
+</div>
+
+<!-- Cookie Modal for Granular Settings -->
+<div id="cookie-modal" class="cookie-modal">
+<div class="cookie-modal-content">
+    <h2>Cookie Settings</h2>
+    <p>Select which cookies you want to allow. Essential cookies are always active.</p>
+    <form id="cookie-form">
+    <div class="cookie-option">
+        <input type="checkbox" id="analytics" name="analytics">
+        <label for="analytics">Analytics Cookies</label>
+    </div>
+    <div class="cookie-option">
+        <input type="checkbox" id="marketing" name="marketing">
+        <label for="marketing">Marketing Cookies</label>
+    </div>
+    <!-- Add more categories as needed -->
+    <div class="modal-actions">
+        <button type="button" id="save-settings" class="cookie-btn">Save Settings</button>
+        <button type="button" id="cancel-settings" class="cookie-btn secondary">Cancel</button>
+    </div>
+    </form>
+</div>
+</div>
+
+<!-- Styles -->
+<style>
+/* Cookie Banner Styles */
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #f8f9fa;
+    border-top: 1px solid #ddd;
+    padding: 15px;
+    text-align: center;
+    z-index: 1000;
+    font-family: Arial, sans-serif;
+}
+.cookie-content p {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: #333;
+}
+.cookie-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.cookie-btn {
+    padding: 8px 16px;
+    border: none;
+    background: #007bff;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+}
+.cookie-btn.secondary {
+    background: #6c757d;
+}
+.cookie-btn.tertiary {
+    background: #28a745;
+}
+
+/* Modal Styles */
+.cookie-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1001;
+    align-items: center;
+    justify-content: center;
+}
+.cookie-modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 90%;
+    text-align: left;
+    font-family: Arial, sans-serif;
+}
+.cookie-modal-content h2 {
+    margin-top: 0;
+    font-size: 20px;
+}
+.cookie-option {
+    margin: 10px 0;
+}
+.modal-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+</style>
+
+<!-- JavaScript -->
+<script>
+// Utility function to set a cookie (consent object stored as JSON)
+function setCookieConsent(consent) {
+    const value = encodeURIComponent(JSON.stringify(consent));
+    document.cookie = "cookie_consent=" + value + "; path=/; max-age=" + (60*60*24*180); // 180 days);
+}
+
+// Hide banner helper
+function hideBanner() {
+    document.getElementById('cookie-banner').style.display = 'none';
+}
+
+// Event Listeners
+document.getElementById('accept-all').addEventListener('click', function() {
+    setCookieConsent({ analytics: true, marketing: true });
+    hideBanner();
+});
+
+document.getElementById('reject-all').addEventListener('click', function() {
+    setCookieConsent({ analytics: false, marketing: false });
+    hideBanner();
+});
+
+document.getElementById('customize').addEventListener('click', function() {
+    document.getElementById('cookie-modal').style.display = 'flex';
+});
+
+document.getElementById('cancel-settings').addEventListener('click', function() {
+    document.getElementById('cookie-modal').style.display = 'none';
+});
+
+document.getElementById('save-settings').addEventListener('click', function() {
+    const consent = {
+    analytics: document.getElementById('analytics').checked,
+    marketing: document.getElementById('marketing').checked
+    };
+    setCookieConsent(consent);
+    document.getElementById('cookie-modal').style.display = 'none';
+    hideBanner();
+});
+
+// Optional: close modal if clicking outside of it
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('cookie-modal');
+    if (event.target === modal) {
+    modal.style.display = 'none';
+    }
+});
+</script>
+{% endif %}
+
+<!-- Optionally, any footer scripts or closing tags -->
