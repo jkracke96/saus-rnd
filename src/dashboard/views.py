@@ -3,6 +3,9 @@ from django.shortcuts import render
 from django.core.signing import TimestampSigner, SignatureExpired
 from django.conf import settings
 from django.http import HttpResponseRedirect
+from .forms import DocumentForm
+from django.shortcuts import redirect
+from django.contrib import messages
 
 import time
 
@@ -24,3 +27,20 @@ def redirect_to_voice_assistant_view(request):
     except SignatureExpired: 
         print("NO ACCESS")
     return HttpResponseRedirect(f"{VOICE_AGENT_URL}?participantName={username}&token={token}")
+
+
+@login_required
+def file_upload_view(request):
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        print("FROM", form.errors)
+        if form.is_valid():
+            document = form.save(commit=False)  # Don't save to DB yet
+            document.user = request.user  # Assign logged-in user
+            document.save()  # Now save to DB
+            messages.success(request, 'File uploaded successfully')
+            return redirect('home')  # Redirect after successful upload
+    else:
+        form = DocumentForm()
+        print(form)
+    return render(request, 'dashboard/file_upload.html', {'form': form})

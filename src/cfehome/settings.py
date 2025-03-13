@@ -86,6 +86,7 @@ INSTALLED_APPS = [
     'profiles',
     'subscriptions',
     'customers',
+    'dashboard',
     # third party apps
     "allauth_ui",
     'allauth',
@@ -94,6 +95,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.github',
     "widget_tweaks",
     'corsheaders',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -220,11 +222,18 @@ STATICFILES_DIRS = [
 # local/prod CDN
 STATIC_ROOT = BASE_DIR / 'local-cdn'
 
-STORAGES = {
+"""STORAGES = {
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        #"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": 'storages.backends.azure_storage.AzureStorage',
     },
-}
+}"""
+
+# File storage for user uploads
+DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+AZURE_ACCOUNT_NAME = config('AZURE_ACCOUNT_NAME', cast=str, default=None)
+AZURE_ACCOUNT_KEY = config('AZURE_ACCOUNT_KEY', cast=str, default=None)
+AZURE_CONTAINER = config('AZURE_CONTAINER', cast=str, default=None)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

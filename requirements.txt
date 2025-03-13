@@ -11,3 +11,5 @@ django-widget-tweaks
 slippers
 stripe
 django-cors-headers
+django-storages
+azure-storage-blob
