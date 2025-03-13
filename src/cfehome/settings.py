@@ -234,6 +234,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 AZURE_ACCOUNT_NAME = config('AZURE_ACCOUNT_NAME', cast=str, default=None)
 AZURE_ACCOUNT_KEY = config('AZURE_ACCOUNT_KEY', cast=str, default=None)
 AZURE_CONTAINER = config('AZURE_CONTAINER', cast=str, default=None)
+CV_UPLOAD_FOLDER = config('CV_UPLOAD_FOLDER', cast=str, default="uploads")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
