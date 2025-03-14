@@ -1,65 +1,56 @@
 {% extends 'dashboard/base.html' %}
 
-{% block head_title %}
-  Homepage - {{ block.super }}
-{% endblock head_title %}
+{% block head_title %}Homepage - {{ block.super }}{% endblock head_title %}
 
 {% block content %}
-<div class="container mx-auto max-w-5xl px-4 py-8 space-y-8">
-  <!-- File Upload Card -->
-  <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg p-6">
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      <div class="mb-4">
-        <label for="id_file" class="block text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">
-          Upload New CV
-        </label>
-        <div class="flex flex-col sm:flex-row items-center gap-4">
-          <!-- Added left padding (pl-6) to align with the button's inner spacing -->
-            <input type="file" name="file" required id="id_file"
-                 class="flex-1 block w-full pl-6 text-base text-gray-900 dark:text-gray-50 border border-gray-300 dark:border-gray-600 rounded-md cursor-pointer bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out">
-                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PDF, PNG or JPG</p>
-            <button type="submit"
-                  class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md text-base px-6 py-3 transition ease-in-out duration-150 shadow">
-            Upload File
-            </button>
-        </div>
-      </div>
-    </form>
-  </div>
-  
-  
+<div class="container mx-auto p-6">
+    <!-- File Upload Section -->
+    <div class="bg-gray-100 dark:bg-gray-800 shadow-md rounded-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
+        <!-- Changed bg-white to bg-gray-100 for light mode -->
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Upload Your CV</h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-4">Please upload your CV in PDF format.</p>
+        <form method="post" enctype="multipart/form-data" class="space-y-4">
+            {% csrf_token %}
+            <div class="flex items-center space-x-4">
+                <label for="id_file" class="block text-sm font-medium text-gray-700 dark:text-gray-300"></label>
+                <input type="file" name="file" required id="id_file"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                    accept=".pdf">
+            </div>
+            <div class="mt-2">
+                <button type="submit"
+                    class="w-full md:w-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                    Upload CV
+                </button>
+            </div>
+        </form>
+    </div>
 
-  {% if documents %}
-  <!-- Table Card -->
-  <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg overflow-x-auto">
-    <table class="w-full">
-      <caption class="p-4 text-xl font-bold text-gray-900 dark:text-gray-100 bg-gray-50 dark:bg-gray-700">
-        Your Uploads
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
-          Browse and manage your uploads below.
-        </p>
-      </caption>
-      <thead class="bg-gray-100 dark:bg-gray-600">
-        <tr>
-          <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-200">
-            File Name
-          </th>
-          <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-200">
-            Age
-          </th>
-          <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-200">
-            <span class="sr-only">Actions</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-        {% for document in documents %}
-          {% include 'dashboard/snippets/user_uploads_table.html' with object=document %}
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  {% endif %}
+    {% if documents %}
+    <!-- Existing Files Section -->
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full overflow-x-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="p-1 px-6 py-3">
+                            File Name
+                        </th>
+                        <th scope="col" class="p-1 px-6 py-3">
+                            Uploaded
+                        </th>
+                        <th scope="col" class="p-1 relative px-6 py-3">
+                            <span class="sr-only">Actions</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                    <!-- Kept bg-white here, it is supposed to be a little bit different -->
+                    {% for document in documents %}
+                        {% include 'dashboard/snippets/user_uploads_table.html' with object=document %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
 </div>
 {% endblock content %}
