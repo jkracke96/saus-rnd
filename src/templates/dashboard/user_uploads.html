@@ -28,15 +28,8 @@
 
     {% if documents %}
     <!-- Existing Files Section -->
-    <div class="bg-gray-100 dark:bg-gray-800 shadow-md rounded-lg border border-gray-200 dark:border-gray-700 p-6">
-      <!-- Changed bg-white to bg-gray-100 for light mode -->
-        <div class="px-0 py-4">
-            <!-- Removed bg from this div so it inherits the parent's background -->
-            <h2 class="text-xl font-semibold text-gray-800 dark:text-white px-6">Your Uploaded CVs</h2>
-            <p class="text-gray-600 dark:text-gray-400 mt-1 px-6">Browse and manage your uploaded files.</p>
-        </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="min-w-full w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <table class="w-full overflow-x-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="p-1 px-6 py-3">
@@ -53,12 +46,11 @@
                 <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                     <!-- Kept bg-white here, it is supposed to be a little bit different -->
                     {% for document in documents %}
-                    {% include 'dashboard/snippets/user_uploads_table.html' with object=document %}
+                        {% include 'dashboard/snippets/user_uploads_table.html' with object=document %}
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-    </div>
     {% endif %}
 </div>
 {% endblock content %}
