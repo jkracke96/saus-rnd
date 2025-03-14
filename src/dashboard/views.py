@@ -20,6 +20,7 @@ def dashboard_view(request):
 @login_required
 def redirect_to_voice_assistant_view(request):
     username = request.user.username
+    user_id = request.user.id
     signer = TimestampSigner(settings.SECRET_KEY)
     token = signer.sign(request.user.id)
     time.sleep(0)
@@ -28,7 +29,7 @@ def redirect_to_voice_assistant_view(request):
         print(status)
     except SignatureExpired: 
         print("NO ACCESS")
-    return HttpResponseRedirect(f"{VOICE_AGENT_URL}?participantName={username}&token={token}")
+    return HttpResponseRedirect(f"{VOICE_AGENT_URL}?participantName={username}&id={user_id}&token={token}")
 
 
 @login_required
