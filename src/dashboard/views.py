@@ -3,8 +3,9 @@ from django.shortcuts import render
 from django.core.signing import TimestampSigner, SignatureExpired
 from django.conf import settings
 from django.http import HttpResponseRedirect
-from .forms import DocumentForm
+from .forms import DocumentForm, JobPostingForm
 from .models import CVDocument
+from .functions import get_text_from_url
 from django.shortcuts import redirect
 from django.contrib import messages
 
@@ -56,3 +57,16 @@ def delete_user_file_view(request, file_name):
     document.delete()
     messages.success(request, f'{file_name} deleted successfully')
     return redirect('user_uploads')
+
+@login_required
+def application_generation_view(request):
+    if request.method == 'POST':
+        # read from post request for unput email
+        form = JobPostingForm(request.POST)
+        if form.is_valid():
+            job_url = form.cleaned_data['job_url']
+            job_text = get_text_from_url(job_url)
+            job_title = job_text['title']
+            job_description = job_text['text']
+            user_id = request.user.id
+    return render(request, 'dashboard/application_generation.html', {})

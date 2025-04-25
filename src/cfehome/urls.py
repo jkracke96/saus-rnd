@@ -33,6 +33,7 @@ urlpatterns = [
         dashboard_views.delete_user_file_view,
         name="delete_user_file"
     ), 
+    path("application-generation/", dashboard_views.application_generation_view, name="application_generation"),
     path("about/", about_view),
     path("hello-world/", home_view),
     path('admin/', admin.site.urls),

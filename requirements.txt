@@ -13,3 +13,4 @@ stripe
 django-cors-headers
 django-storages
 azure-storage-blob
+beautifulsoup4
