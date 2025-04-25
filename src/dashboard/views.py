@@ -2,9 +2,10 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.core.signing import TimestampSigner, SignatureExpired
 from django.conf import settings
-from django.http import HttpResponseRedirect
-from .forms import DocumentForm
+from django.http import HttpResponseRedirect, HttpResponse
+from .forms import DocumentForm, JobPostingForm
 from .models import CVDocument
+from .functions import get_text_from_url, get_latest_cv, download_blob_to_stream, extract_text_from_pdf_stream, generate_custom_cv
 from django.shortcuts import redirect
 from django.contrib import messages
 
@@ -56,3 +57,22 @@ def delete_user_file_view(request, file_name):
     document.delete()
     messages.success(request, f'{file_name} deleted successfully')
     return redirect('user_uploads')
+
+@login_required
+def application_generation_view(request):
+    if request.method == 'POST':
+        # read from post request for unput email
+        form = JobPostingForm(request.POST)
+        if form.is_valid():
+            job_url = form.cleaned_data['job_url']
+            job_text = get_text_from_url(job_url)
+            job_title = job_text['title']
+            job_description = job_text['text']
+            user_id = request.user.id
+            latest_cv_name = get_latest_cv(user_id, CVDocument)
+            stream = download_blob_to_stream(latest_cv_name)
+            cv_text = extract_text_from_pdf_stream(stream)
+            cv_html = generate_custom_cv(cv_text, job_description)
+            response = HttpResponse(cv_html, content_type='text/html')
+            return response
+    return render(request, 'dashboard/application_generation.html', {})

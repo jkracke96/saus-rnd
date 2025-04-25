@@ -13,3 +13,6 @@ stripe
 django-cors-headers
 django-storages
 azure-storage-blob
+beautifulsoup4
+PyPDF2
+openai

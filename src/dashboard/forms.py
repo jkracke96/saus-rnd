@@ -7,3 +7,9 @@ class DocumentForm(forms.ModelForm):
         model = CVDocument
         fields = ('file',)
 
+
+class JobPostingForm(forms.Form):
+    job_url = forms.URLField()
+    
+
+
