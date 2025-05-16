@@ -235,6 +235,7 @@ AZURE_ACCOUNT_NAME = config('AZURE_ACCOUNT_NAME', cast=str, default=None)
 AZURE_ACCOUNT_CONNECTION_STRING = config('AZURE_ACCOUNT_CONNECTION_STRING', cast=str, default=None)
 AZURE_ACCOUNT_KEY = config('AZURE_ACCOUNT_KEY', cast=str, default=None)
 AZURE_CONTAINER = config('AZURE_CONTAINER', cast=str, default=None)
+AZURE_GENERATED_CV_CONTAINER = config('AZURE_GENERATED_CV_CONTAINER', cast=str, default=None)
 CV_UPLOAD_FOLDER = config('CV_UPLOAD_FOLDER', cast=str, default="uploads")
 
 # LLM

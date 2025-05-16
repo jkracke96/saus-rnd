@@ -6,10 +6,14 @@ from azure.storage.blob import BlobServiceClient
 import PyPDF2
 from openai import AzureOpenAI 
 from django.conf import settings
+import uuid
+from django.template.loader import render_to_string
+from weasyprint import HTML
 
 
 AZURE_STORAGE_CONNECTION_STRING = settings.AZURE_ACCOUNT_CONNECTION_STRING
 CONTAINER_NAME = settings.AZURE_CONTAINER
+AZURE_GENERATED_CV_CONTAINER=settings.AZURE_GENERATED_CV_CONTAINER
 AZURE_OPENAI_API_KEY = settings.AZURE_OPENAI_API_KEY
 AZURE_OPENAI_ENDPOINT = settings.AZURE_OPENAI_ENDPOINT
 OPENAI_API_VERSION = settings.OPENAI_API_VERSION
@@ -87,5 +91,59 @@ def generate_custom_cv(cv_text, job_description):
         ],
     )
     return custom_cv.choices[0].message.content
+
+
+def convert_html_string_to_pdf_io(html_string):
+    """
+    Converts an HTML string into a BytesIO object containing PDF data.
+    Returns BytesIO object on success, None on failure.
+    """
+    try:
+        # Create an HTML object from the string
+        html = HTML(string=html_string)
+
+        # Render to PDF bytes
+        pdf_bytes = html.write_pdf()
+
+        # Wrap bytes in a BytesIO object (like an in-memory file)
+        pdf_io = BytesIO(pdf_bytes)
+        return pdf_io
+    except Exception as e:
+        # Log the error in a real application
+        print(f"Error converting HTML to PDF: {e}")
+        return None
+    
+
+def upload_pdf_io_to_azure(pdf_io, user_id, filename_prefix="generated_cv", connection_string=AZURE_STORAGE_CONNECTION_STRING):
+    """
+    Uploads a PDF BytesIO object to Azure Blob Storage.
+    Returns the public URL of the uploaded blob on success, None on failure.
+    """
+    container_name = settings.AZURE_GENERATED_CV_CONTAINER
+
+    try:
+        # Create the BlobServiceClient
+        blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+        container_client = blob_service_client.get_container_client(container_name)
+
+        # Generate a unique blob name (path within the container)
+        # Using UUID helps prevent naming conflicts
+        blob_name = f"{filename_prefix}/{user_id}/{uuid.uuid4()}.pdf"
+
+        # Ensure the BytesIO cursor is at the beginning before uploading
+        pdf_io.seek(0)
+
+        # Upload the blob
+        blob_client = container_client.upload_blob(name=blob_name, data=pdf_io, overwrite=True) # overwrite=True might be useful if you anticipate regenerating
+        
+        # Construct the blob URL
+        pdf_url = blob_client.url
+        
+        return pdf_url
+
+    except Exception as e:
+        # Log the error in a real application
+        print(f"Error uploading PDF to Azure Blob Storage: {e}")
+        return None
             
 
