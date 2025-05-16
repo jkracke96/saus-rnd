@@ -4,8 +4,8 @@ from django.core.signing import TimestampSigner, SignatureExpired
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse
 from .forms import DocumentForm, JobPostingForm
-from .models import CVDocument
-from .functions import get_text_from_url, get_latest_cv, download_blob_to_stream, extract_text_from_pdf_stream, generate_custom_cv
+from .models import CVDocument, GeneratedCV
+from .functions import get_text_from_url, get_latest_cv, download_blob_to_stream, extract_text_from_pdf_stream, generate_custom_cv, convert_html_string_to_pdf_io, upload_pdf_io_to_azure
 from django.shortcuts import redirect
 from django.contrib import messages
 
@@ -68,11 +68,15 @@ def application_generation_view(request):
             job_text = get_text_from_url(job_url)
             job_title = job_text['title']
             job_description = job_text['text']
-            user_id = request.user.id
+            user = request.user
+            user_id = user.id
             latest_cv_name = get_latest_cv(user_id, CVDocument)
             stream = download_blob_to_stream(latest_cv_name)
             cv_text = extract_text_from_pdf_stream(stream)
             cv_html = generate_custom_cv(cv_text, job_description)
-            response = HttpResponse(cv_html, content_type='text/html')
-            return response
+            pdf_io = convert_html_string_to_pdf_io(cv_html)
+            pdf_url = upload_pdf_io_to_azure(pdf_io, latest_cv_name)
+            generated_cv = GeneratedCV.objects.create(user_id=user_id, file=pdf_url)
+            generated_cv.save()
+            return redirect('application_generation')
     return render(request, 'dashboard/application_generation.html', {})

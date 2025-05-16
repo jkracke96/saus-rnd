@@ -26,6 +26,15 @@ RUN apt-get update && apt-get install -y \
     libcairo2 \
     # other
     gcc \
+    # for weasyprint
+    libpango-1.0-0 \
+    libpangoft2-1.0-0 \
+    libpangocairo-1.0-0 \
+    libcairo2 \
+    libgdk-pixbuf2.0-0 \
+    libffi-dev \
+    zlib1g-dev \
+    libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
 # Create the mini vm's code directory
