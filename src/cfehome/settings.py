@@ -232,9 +232,17 @@ STATIC_ROOT = BASE_DIR / 'local-cdn'
 # File storage for user uploads
 DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 AZURE_ACCOUNT_NAME = config('AZURE_ACCOUNT_NAME', cast=str, default=None)
+AZURE_ACCOUNT_CONNECTION_STRING = config('AZURE_ACCOUNT_CONNECTION_STRING', cast=str, default=None)
 AZURE_ACCOUNT_KEY = config('AZURE_ACCOUNT_KEY', cast=str, default=None)
 AZURE_CONTAINER = config('AZURE_CONTAINER', cast=str, default=None)
+AZURE_GENERATED_CV_CONTAINER = config('AZURE_GENERATED_CV_CONTAINER', cast=str, default=None)
 CV_UPLOAD_FOLDER = config('CV_UPLOAD_FOLDER', cast=str, default="uploads")
+
+# LLM
+AZURE_OPENAI_API_KEY = config('AZURE_OPENAI_API_KEY', cast=str, default=None)
+AZURE_OPENAI_ENDPOINT = config('AZURE_OPENAI_ENDPOINT', cast=str, default=None)
+OPENAI_API_VERSION = config('OPENAI_API_VERSION', cast=str, default=None)
+OPENAI_MODEL = config('OPENAI_MODEL', cast=str, default=None)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

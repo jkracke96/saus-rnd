@@ -13,3 +13,8 @@ stripe
 django-cors-headers
 django-storages
 azure-storage-blob
+beautifulsoup4
+PyPDF2
+openai
+weasyprint
+# export DYLD_LIBRARY_PATH="/opt/homebrew/lib" # for MacOS

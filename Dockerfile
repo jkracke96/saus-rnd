@@ -26,6 +26,15 @@ RUN apt-get update && apt-get install -y \
     libcairo2 \
     # other
     gcc \
+    # for weasyprint
+    libpango-1.0-0 \
+    libpangoft2-1.0-0 \
+    libpangocairo-1.0-0 \
+    libcairo2 \
+    libgdk-pixbuf2.0-0 \
+    libffi-dev \
+    zlib1g-dev \
+    libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
 # Create the mini vm's code directory
@@ -65,7 +74,7 @@ ARG PROJ_NAME="cfehome"
 RUN printf "#!/bin/bash\n" > ./paracord_runner.sh && \
     printf "RUN_PORT=\"\${PORT:-8000}\"\n\n" >> ./paracord_runner.sh && \
     printf "python manage.py migrate --no-input\n" >> ./paracord_runner.sh && \
-    printf "gunicorn ${PROJ_NAME}.wsgi:application --bind \"0.0.0.0:\$RUN_PORT\"\n" >> ./paracord_runner.sh
+    printf "gunicorn ${PROJ_NAME}.wsgi:application --bind \"0.0.0.0:\$RUN_PORT\" --timeout 120 \n" >> ./paracord_runner.sh
 
 # make the bash script executable
 RUN chmod +x paracord_runner.sh
