@@ -88,6 +88,7 @@ def application_generation_view(request):
                 user_id=user_id,
                 file=pdf_url,
                 job_url=job_url,
+                job_title=job_title,
                 file_name=pdf_name
             )
             generated_cv.save()
