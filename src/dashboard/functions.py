@@ -100,6 +100,7 @@ def convert_html_string_to_pdf_io(html_string):
     """
     try:
         # Create an HTML object from the string
+        html_string = html_string.replace("```html", "").replace("```", "")  # Remove newlines for better formatting
         html = HTML(string=html_string)
 
         # Render to PDF bytes
@@ -138,8 +139,13 @@ def upload_pdf_io_to_azure(pdf_io, user_id, filename_prefix="generated_cv", conn
         
         # Construct the blob URL
         pdf_url = blob_client.url
+
+        response = {
+            "pdf_url": pdf_url,
+            "blob_name": blob_name,
+        }
         
-        return pdf_url
+        return response
 
     except Exception as e:
         # Log the error in a real application
