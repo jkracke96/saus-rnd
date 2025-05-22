@@ -39,6 +39,7 @@ class GeneratedCV(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     file = models.TextField()
     job_url = models.TextField(null=True, blank=True)
+    job_title = models.TextField(null=True, blank=True)
     file_name = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
