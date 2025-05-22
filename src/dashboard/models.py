@@ -38,6 +38,8 @@ class CVDocument(models.Model):
 class GeneratedCV(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     file = models.TextField()
+    job_url = models.TextField(null=True, blank=True)
+    file_name = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -45,3 +47,15 @@ class GeneratedCV(models.Model):
 
     def __str__(self):
         return f"Generated CV - {self.user.username}, {self.created_at.strftime('%Y-%m-%d %H:%M:%S')}"
+    
+    @property
+    def download_url(self):
+        file_name = {self.file_name}
+        download_url = reverse("download_cv", kwargs={"file_name": file_name})
+        return download_url
+    
+    @property
+    def deletion_url(self):
+        file_name = {self.file_name}
+        deletion_url = reverse("delete_generated_cv", kwargs={"file_name": file_name})
+        return deletion_url

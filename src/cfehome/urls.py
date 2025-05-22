@@ -32,7 +32,17 @@ urlpatterns = [
         'delete-user-upload/<path:file_name>/',
         dashboard_views.delete_user_file_view,
         name="delete_user_file"
-    ), 
+    ),
+    path(
+        'download-cv/<path:file_name>/',
+        dashboard_views.download_generated_cv_view,
+        name="download_cv"
+    ),
+     path(
+        'delete-generated-cv/<path:file_name>/',
+        dashboard_views.delete_generated_cv_view,
+        name="delete_generated_cv"
+    ),
     path("application-generation/", dashboard_views.application_generation_view, name="application_generation"),
     path("about/", about_view),
     path("hello-world/", home_view),
