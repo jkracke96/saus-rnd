@@ -8,11 +8,11 @@ from .models import CVDocument, GeneratedCV
 from .functions import get_text_from_url, get_latest_cv, download_blob_to_stream, extract_text_from_pdf_stream, generate_custom_cv, convert_html_string_to_pdf_io, upload_pdf_io_to_azure
 from django.shortcuts import redirect
 from django.contrib import messages
-
 import time
 
 VOICE_AGENT_URL = settings.VOICE_AGENT_URL
 CV_UPLOAD_FOLDER = settings.CV_UPLOAD_FOLDER
+AZURE_GENERATED_CV_CONTAINER=settings.AZURE_GENERATED_CV_CONTAINER
 
 @login_required
 def dashboard_view(request):
@@ -53,10 +53,14 @@ def user_uploads_view(request):
 def delete_user_file_view(request, file_name):
     file_name = file_name[2:len(file_name)-2]
     document = CVDocument.objects.get(file=file_name)
+    if document.user != request.user:
+        messages.error(request, "You do not have permission to delete this file.")
+        return redirect('user_uploads')
     file_name = document.file.name
     document.delete()
     messages.success(request, f'{file_name} deleted successfully')
     return redirect('user_uploads')
+
 
 @login_required
 def application_generation_view(request):
@@ -75,8 +79,44 @@ def application_generation_view(request):
             cv_text = extract_text_from_pdf_stream(stream)
             cv_html = generate_custom_cv(cv_text, job_description)
             pdf_io = convert_html_string_to_pdf_io(cv_html)
-            pdf_url = upload_pdf_io_to_azure(pdf_io, latest_cv_name)
-            generated_cv = GeneratedCV.objects.create(user_id=user_id, file=pdf_url)
+            blob_obj = upload_pdf_io_to_azure(pdf_io, user_id)
+            pdf_url = blob_obj.get("pdf_url")
+            pdf_name = blob_obj.get("blob_name")
+            generated_cv = GeneratedCV.objects.create(
+                user_id=user_id,
+                file=pdf_url,
+                job_url=job_url,
+                file_name=pdf_name
+            )
             generated_cv.save()
             return redirect('application_generation')
-    return render(request, 'dashboard/application_generation.html', {})
+    cvs_qs = GeneratedCV.objects.filter(user=request.user)
+    return render(request, 'dashboard/application_generation.html', {"cvs":cvs_qs})
+
+
+@login_required
+def download_generated_cv_view(request, file_name):
+    file_name = file_name[2:len(file_name)-2]
+    print("FILE NAME", file_name)
+    document = GeneratedCV.objects.get(file_name=file_name)
+    if document.user != request.user:
+        messages.error(request, "You do not have permission to download this file.")
+        return redirect('application_generation')
+    pdf_stream = download_blob_to_stream(document.file_name, container_name=AZURE_GENERATED_CV_CONTAINER)
+    response = HttpResponse(pdf_stream.getvalue(), content_type='application/pdf')
+    filename = "your_genrated_cv.pdf"
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+    return response
+
+
+@login_required
+def delete_generated_cv_view(request, file_name):
+    file_name = file_name[2:len(file_name)-2]
+    print("FILE NAME", file_name)
+    document = GeneratedCV.objects.get(file_name=file_name)
+    if document.user != request.user:
+        messages.error(request, "You do not have permission to delete this file.")
+        return redirect('application_generation')
+    document.delete()
+    messages.success(request, f'{file_name} deleted successfully')
+    return redirect('application_generation')
