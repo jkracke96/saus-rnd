@@ -59,3 +59,9 @@ class GeneratedCV(models.Model):
         file_name = {self.file_name}
         deletion_url = reverse("delete_generated_cv", kwargs={"file_name": file_name})
         return deletion_url
+    
+    @property
+    def voice_assistant_url(self):
+        job_url = {self.job_url}
+        voice_assistant_url = reverse("redirect_to_voice_assistant", kwargs={"job_url": job_url})
+        return voice_assistant_url
