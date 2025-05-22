@@ -26,7 +26,11 @@ from dashboard import views as dashboard_views
 
 urlpatterns = [
     path("", landing_views.landing_dashboard_page_view, name="home"),
-    path("redirect-to-voice-assistant", dashboard_views.redirect_to_voice_assistant_view, name="redirect_to_voice_assistant"),   # root page
+    path(
+        "redirect-to-voice-assistant/<path:job_url>/",
+        dashboard_views.redirect_to_voice_assistant_view,
+        name="redirect_to_voice_assistant"
+    ),
     path("user-uploads/", dashboard_views.user_uploads_view, name="user_uploads"),
     path(
         'delete-user-upload/<path:file_name>/',
