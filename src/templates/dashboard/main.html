@@ -1,55 +1,19 @@
 {% extends 'dashboard/base.html' %}
+{% load static %}
 
 {% block head_title %}Homepage - {{ block.super }}{% endblock head_title %}
 
 {% block content %}
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-    <div
-      class="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 h-32 md:h-64"
-    ></div>
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
-    ></div>
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
-    ></div>
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
-    ></div>
-  </div>
-  <div
-    class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
-  ></div>
-  <div class="grid grid-cols-2 gap-4 mb-4">
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-    ></div>
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-    ></div>
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-    ></div>
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-    ></div>
-  </div>
-  <div
-    class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
-  ></div>
-  <div class="grid grid-cols-2 gap-4">
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-    ></div>
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-    ></div>
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-    ></div>
-    <div
-      class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-    ></div>
-  </div>
 
-  {% endblock content %}
+<div class="w-full px-4 py-8 mx-auto lg:py-16">
+  <div class="w-full">
+    <h1 class="w-full mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">Prepare for your next job interview</h1>
+    <p class="w-full mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+      1. Upload a simple CV with you most important experience, education, skills and projects.<br>
+      2. Generate a job application for a specific job posting.<br>
+      3. Practice for the interview with an AI agent that will ask you questions based on the job description.
+    </p>
+  </div>            
+</div>
+
+{% endblock content %}
