@@ -18,34 +18,11 @@
     </div>
 
     {% if cvs %}
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                    <th scope="col" class="px-6 py-3">
-                        Job
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Link
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Created at
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for cv in cvs %}
-                        {% include 'dashboard/snippets/generated_cv_table.html' with object=cv %}
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+        <div class="flex flex-wrap gap-4 justify-center">
+            {% for cv in cvs %}
+                    {% include 'dashboard/snippets/generated_cv_card.html' with object=cv %}
+            {% endfor %}
+        </div>
     {% endif %}
 
 {% endblock content %}
