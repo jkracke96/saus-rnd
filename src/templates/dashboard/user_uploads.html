@@ -3,10 +3,8 @@
 {% block head_title %}Homepage - {{ block.super }}{% endblock head_title %}
 
 {% block content %}
-<div class="container mx-auto p-6">
-    <!-- File Upload Section -->
+<div class="container mx-auto p-2">
     <div class="bg-gray-100 dark:bg-gray-800 shadow-md rounded-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
-        <!-- Changed bg-white to bg-gray-100 for light mode -->
         <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Upload Your CV</h2>
         <p class="text-gray-600 dark:text-gray-400 mb-4">Please upload your CV in PDF format.</p>
         <form method="post" enctype="multipart/form-data" class="space-y-4">
@@ -27,29 +25,10 @@
     </div>
 
     {% if documents %}
-    <!-- Existing Files Section -->
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full overflow-x-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="p-1 px-6 py-3">
-                            File Name
-                        </th>
-                        <th scope="col" class="p-1 px-6 py-3">
-                            Uploaded
-                        </th>
-                        <th scope="col" class="p-1 relative px-6 py-3">
-                            <span class="sr-only">Actions</span>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                    <!-- Kept bg-white here, it is supposed to be a little bit different -->
-                    {% for document in documents %}
-                        {% include 'dashboard/snippets/user_uploads_table.html' with object=document %}
-                    {% endfor %}
-                </tbody>
-            </table>
+        <div class="flex flex-wrap gap-4 justify-center">
+            {% for document in documents %}
+                {% include 'dashboard/snippets/user_uploads_card.html' with object=document %}
+            {% endfor %}
         </div>
     {% endif %}
 </div>
