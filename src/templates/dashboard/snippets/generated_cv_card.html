@@ -1,0 +1,42 @@
+<div class="w-full max-w-xs bg-gradient-to-br from-white via-gray-50 to-gray-200 border border-gray-200 rounded-xl dark:bg-gradient-to-br dark:from-gray-800 dark:via-gray-900 dark:to-gray-700 dark:border-gray-700 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+    <div class="flex flex-col items-center pt-8 px-8 pb-10 flex-wrap: wrap">
+        <div class="w-16 h-16 mb-3 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center shadow-inner">
+            <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+        </div>
+        <h5 class="mb-3 text-xl font-medium text-gray-900 dark:text-white text-center break-words w-full px-4" title="{{ object.job_title }}">{{ object.job_title }}</h5>
+        <span class="text-sm text-gray-500 dark:text-gray-400 mb-6">Posted {{ object.created_at|timesince }} ago</span>
+
+        {# Changed gap-3 to gap-4 for more space between buttons #}
+        <div class="flex flex-col md:flex-row flex-wrap: wrap justify-center gap-4 mt-4 w-full mb-6 ms-2 p-2">
+            <a href="{{ object.job_url }}" target="_blank"
+                class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition-colors flex-grow md:flex-grow-0 md:w-auto">
+                <svg class="w-4 h-4 mr-2 -ml-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM13.5 6a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM6.5 6a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM17.836 12.13a6.418 6.418 0 0 1-5.011 3.56A6.5 6.5 0 0 1 5.485 12.3L10 16.5l4.515-4.2A6.5 6.5 0 0 1 17.836 12.13Z"/>
+                </svg>
+                View Job
+            </a>
+            <a href="{{ object.download_url }}" target="_blank"
+                class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition-colors flex-grow md:flex-grow-0 md:w-auto">
+                <svg class="w-4 h-4 mr-2 -ml-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0 0-1.414Z"/>
+                    <path d="M18 12h-2v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4H2a2 2 0 0 0-2 2v4a4 4 0 0 0 4 4h12a4 4 0 0 0 4-4v-4a2 2 0 0 0-2-2Z"/>
+                </svg>
+                Download
+            </a>
+            <a href="{{ object.voice_assistant_url }}" target="_blank"
+                class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition-colors flex-grow md:flex-grow-0 md:w-auto">
+                <svg class="w-4 h-4 mr-2 -ml-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 0C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10S15.523 0 10 0ZM8 14V6l6 4-6 4Z"/>
+                </svg>
+                Practice
+            </a>
+            <a href="{{ object.deletion_url }}"
+                class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800 transition-colors flex-grow md:flex-grow-0 md:w-auto">
+                <svg class="w-4 h-4 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                Delete
+            </a>
+        </div>
+    </div>
+</div>
