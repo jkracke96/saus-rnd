@@ -39,11 +39,13 @@ def redirect_to_voice_assistant_view(request, job_url):
 def user_uploads_view(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
-        print("FROM", form.errors)
         if form.is_valid():
+            plain_file_name = request.FILES.get('file').name
             document = form.save(commit=False)  # Don't save to DB yet
+            document.plain_name = plain_file_name
             document.user = request.user  # Assign logged-in user
             document.save()  # Now save to DB
+            print("File saved:", document.plain_name)
             messages.success(request, 'File uploaded successfully')
             return redirect('user_uploads')  # Redirect after successful upload
     # load all user files

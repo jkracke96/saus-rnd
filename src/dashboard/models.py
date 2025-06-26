@@ -19,6 +19,7 @@ def unique_filename(instance, filename):
 
 class CVDocument(models.Model):
     file = models.FileField(upload_to=unique_filename)
+    plain_name = models.TextField(null=True, blank=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
