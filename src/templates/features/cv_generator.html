@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}Homepage - {{ block.super }}{% endblock head_title %}
+
+{% block content %}
+<section class="bg-white dark:bg-gray-900 py-12 mt-4 mb-4">
+  <div class="max-w-3xl mx-auto px-4">
+    <h1 class="mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white">
+      CV AI – Erstelle deinen perfekten Lebenslauf mit Künstlicher Intelligenz!
+    </h1>
+    <p class="mb-4 text-lg text-gray-700 dark:text-gray-300">
+      Ist dein Lebenslauf noch nicht perfekt auf die Stellenanzeige zugeschnitten? Hast du Schwierigkeiten, deine Fähigkeiten und Erfahrungen optimal zu präsentieren? Entdecke die Zukunft der Bewerbung mit unserem innovativen <strong>CV AI-Generator</strong>, der dir hilft, dich von der Masse abzuheben!
+    </p>
+    <p class="mb-6 text-lg text-gray-700 dark:text-gray-300">
+      In der heutigen wettbewerbsorientierten Arbeitswelt ist ein herausragender Lebenslauf entscheidend, um die Aufmerksamkeit von Personalverantwortlichen zu gewinnen. Doch die manuelle Anpassung des CVs an jede einzelne Stellenanzeige ist zeitaufwendig und oft frustrierend. Genau hier kommt unsere revolutionäre CV AI ins Spiel.
+    </p>
+    <h2 class="mb-4 text-2xl font-bold text-gray-800 dark:text-white">
+      Was unser CV AI-Generator so einzigartig macht:
+    </h2>
+    <ul class="space-y-4 mb-6 text-gray-700 dark:text-gray-300 list-disc list-inside">
+      <li>
+        <span class="font-semibold text-primary-700 dark:text-primary-400">Intelligente Anpassung:</span>
+        Lade einfach deine vorhandenen Lebenslauf-Daten und die Stellenausschreibung hoch. Unsere KI analysiert beide Dokumente und generiert einen maßgeschneiderten Lebenslauf, der die Schlüsselqualifikationen und Schlagwörter der gewünschten Position hervorhebt.
+      </li>
+      <li>
+        <span class="font-semibold text-primary-700 dark:text-primary-400">Zeitersparnis:</span>
+        Vergiss stundenlanges Formatieren und Texten. Unser AI-Generator erledigt die mühsame Arbeit in Minutenschnelle, sodass du dich auf das Wesentliche konzentrieren kannst.
+      </li>
+      <li>
+        <span class="font-semibold text-primary-700 dark:text-primary-400">Optimale Keyword-Platzierung:</span>
+        Viele Unternehmen nutzen Applicant Tracking Systems (ATS), die Lebensläufe nach bestimmten Keywords filtern. Unsere CV AI sorgt dafür, dass dein Lebenslauf optimal für diese Systeme aufbereitet ist und nicht durchs Raster fällt.
+      </li>
+      <li>
+        <span class="font-semibold text-primary-700 dark:text-primary-400">Professionelles Design:</span>
+        Wähle aus einer Vielzahl von ansprechenden und modernen Vorlagen, um deinem Lebenslauf einen professionellen Schliff zu verleihen, der beeindruckt.
+      </li>
+      <li>
+        <span class="font-semibold text-primary-700 dark:text-primary-400">Inhaltliche Verbesserung:</span>
+        Die KI schlägt dir Formulierungen und Inhalte vor, die deine Erfahrungen und Erfolge prägnanter und wirkungsvoller darstellen. So wird dein Lebenslauf nicht nur angepasst, sondern auch inhaltlich optimiert.
+      </li>
+      <li>
+        <span class="font-semibold text-primary-700 dark:text-primary-400">Erhöhte Erfolgschancen:</span>
+        Mit einem individuell angepassten und SEO-optimierten Lebenslauf steigen deine Chancen erheblich, zu einem Vorstellungsgespräch eingeladen zu werden.
+      </li>
+    </ul>
+    <p class="mb-4 text-lg text-gray-700 dark:text-gray-300">
+      Verschwende keine Zeit mehr mit der manuellen Optimierung deines Lebenslaufs. Nutze die Power unserer CV AI und revolutioniere deine Jobsuche. Ein perfekter Lebenslauf ist nur wenige Klicks entfernt!
+    </p>
+    <div class="flex justify-center">
+      <a href="{% url 'account_login' %}"
+         class="inline-flex items-center px-3 py-3 text-base font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 transition">
+        Jetzt CV AI-Generator ausprobieren
+        <svg class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 15.707a1 1 0 010-1.414L13.586 11H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+      </a>
+    </div>
+  </div>
+</section>
+<section class="bg-white dark:bg-gray-900 py-12 mt-4 mb-8">
+</section>
+{% endblock content %}

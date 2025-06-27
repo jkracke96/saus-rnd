@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}Homepage - {{ block.super }}{% endblock head_title %}
+
+{% block content %}
+<section class="interview-section bg-white dark:bg-gray-900 py-12 mt-4">
+  <div class="max-w-3xl mx-auto px-4">
+    <h1 class="mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white">
+      Bewerbungsgespräche meistern – Dein KI-Voice-Agent hilft dir bei den häufigsten Fragen!
+    </h1>
+    <p class="mb-4 text-lg text-gray-700 dark:text-gray-300">
+      Suchst du nach Möglichkeiten, dein nächstes Bewerbungsgespräch zu perfektionieren? Fragst du dich, welche Fragen dich erwarten können und wie du am besten darauf antwortest? Unser innovativer <strong>KI-Voice-Agent</strong> ist die Antwort auf deine Vorbereitungssorgen und hilft dir dabei, jedes Vorstellungsgespräch souverän zu meistern.
+    </p>
+    <p class="mb-6 text-lg text-gray-700 dark:text-gray-300">
+      Die Vorbereitung auf ein Bewerbungsgespräch kann eine Herausforderung sein. Oftmals ist es schwierig, die richtigen Antworten auf die typischen Fragen zu finden und dabei authentisch und überzeugend zu bleiben. Genau hier setzt unsere Web-App an: Mit unserem einzigartigen KI-Voice-Agenten kannst du realistische Vorstellungsgespräche simulieren und dich optimal auf jede Situation einstellen.
+    </p>
+    <h2 class="mb-4 text-2xl font-bold text-gray-800 dark:text-white">
+      Warum unser KI-Voice-Agent der Schlüssel zu deinem Erfolg ist:
+    </h2>
+    <ul class="space-y-4 mb-6 text-gray-700 dark:text-gray-300 list-disc list-inside">
+      <li>
+        <span class="font-semibold text-primary-700 dark:text-primary-400">Realistische Simulationen:</span>
+        Erlebe ein Bewerbungsgespräch, das sich anfühlt wie echt. Unser KI-Agent stellt dir Fragen, die auf typischen Interview-Szenarien basieren.
+      </li>
+      <li>
+        <span class="font-semibold text-primary-700 dark:text-primary-400">Individuelles Feedback:</span>
+        Nach jedem Übungsgespräch erhältst du detailliertes Feedback zu deinen Antworten, deiner Ausdrucksweise und deinem Auftreten. So kannst du gezielt an deinen Schwachstellen arbeiten.
+      </li>
+      <li>
+        <span class="font-semibold text-primary-700 dark:text-primary-400">Anpassbar an jede Stelle:</span>
+        Egal, ob du dich auf eine Position im Marketing, in der IT oder im Gesundheitswesen bewirbst – du kannst die spezifischen Anforderungen der Stelle eingeben, und unser KI-Agent passt die Fragen entsprechend an. So übst du genau das, was du wirklich brauchst.
+      </li>
+      <li>
+        <span class="font-semibold text-primary-700 dark:text-primary-400">Flexibilität und Komfort:</span>
+        Übe jederzeit und überall, bequem von zu Hause oder unterwegs. Du benötigst lediglich ein Gerät mit Internetzugang.
+      </li>
+      <li>
+        <span class="font-semibold text-primary-700 dark:text-primary-400">Steigere dein Selbstvertrauen:</span>
+        Je besser du vorbereitet bist, desto sicherer fühlst du dich. Unser KI-Voice-Agent nimmt dir die Nervosität und hilft dir, mit mehr Gelassenheit ins Gespräch zu gehen.
+      </li>
+    </ul>
+    <p class="mb-4 text-lg text-gray-700 dark:text-gray-300">
+      Vergiss langwierige Recherchen nach den besten Antworten auf Bewerbungsgespräch Fragen. Mit unserem KI-Voice-Agenten hast du einen persönlichen Coach an deiner Seite, der dich durch den gesamten Prozess führt und dir hilft, deine Stärken optimal zu präsentieren. Bereite dich effektiv vor und erhöhe deine Chancen auf den Traumjob!
+    </p>
+    <div class="flex justify-center gap-4 p-1">
+      <a href="{% url 'account_login' %}"
+         class="inline-flex items-center px-3 py-3 text-base font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 transition">
+        Jetzt KI-Voice-Agent testen
+        <svg class="w-4 h-4 ml-2 -mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 15.707a1 1 0 010-1.414L13.586 11H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+      </a>
+    </div>
+  </div>
+</section>
+<section class="bg-white dark:bg-gray-900 py-12 mt-4 mb-8">
+</section>
+{% endblock content %}
