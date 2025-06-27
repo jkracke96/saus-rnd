@@ -26,6 +26,9 @@ from dashboard import views as dashboard_views
 
 urlpatterns = [
     path("", landing_views.landing_dashboard_page_view, name="home"),
+    path("features/interview/", landing_views.feature_interviews_view, name="feature_interviews"),
+    path("features/cv-generator/", landing_views.feature_cv_generator_view, name="feature_cv_generator"),
+    path("dashboard/", dashboard_views.dashboard_view, name="home"),
     path(
         "redirect-to-voice-assistant/<path:job_url>/",
         dashboard_views.redirect_to_voice_assistant_view,
